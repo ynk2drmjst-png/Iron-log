@@ -76,7 +76,7 @@ function deleteTemplateEx(i){if(!confirm('Remove this exercise from the template
 function moveToDay(i,j){if(j===editDay)return;const name=dayAt(editDay).exercises.splice(i,1)[0];dayAt(j).exercises.push(name);save();render()}
 function addDay(){state.templates.push({id:uid(),name:'New day',focus:'Custom priority',exercises:[]});editDay=state.templates.length-1;save();render()}
 function removeDay(){if(state.templates.length===1)return alert('Keep at least one training day.');if(!confirm('Delete this training day? Completed workouts will remain saved.'))return;state.templates.splice(editDay,1);editDay=Math.max(0,editDay-1);save();render()}
-function openPicker(mode,index){picker={mode,index};pickerSearch='';pickerMuscle='All';pickerEquipment='All';variantBase=null;render();setTimeout(()=>$('#picker-search')?.focus(),0)}
+function openPicker(mode,index){picker={mode,index};pickerSearch='';pickerMuscle='All';pickerEquipment='All';variantBase=null;render();setTimeout(()=>{const target=document.querySelector('.picker');if(target){target.scrollIntoView({behavior:'smooth',block:'start'});const search=target.querySelector('#picker-search');if(search)search.focus({preventScroll:true});}},50)}
 function closePicker(){picker=null;variantBase=null;render()}
 function filterPicker(k,v){if(k==='search')pickerSearch=v;if(k==='muscle')pickerMuscle=v;if(k==='equipment')pickerEquipment=v;render();if(k==='search'){const e=$('#picker-search');e?.focus();e?.setSelectionRange(v.length,v.length)}}
 let variantBase=null,variantGrip='Standard',variantWidth='Standard',variantSide='Bilateral';
